@@ -1,4 +1,3 @@
-cat > /mnt/user-data/outputs/dealhunt-app.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -192,8 +191,7 @@ function setState(updates) {
 
 async function fetchListings() {
   try {
-    const kw = ["iphone","lego","vélo enfant","ps5","nintendo","macbook","voiture enfant","thermomix","dyson","airpods"].join(",");
-    const res = await fetch(`${SERVER}/api/scan?keywords=${encodeURIComponent(kw)}`);
+    const res = await fetch(`${SERVER}/api/deals`);
     if (!res.ok) throw new Error("Server error");
     const data = await res.json();
     return data.listings || [];
