@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/dealhunt-app.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +8,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="DealHunt"/>
 <title>DealHunt ⚡</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -16,110 +16,101 @@ body{background:#080810;color:#E2E2EE;font-family:'DM Mono','Courier New',monosp
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @keyframes fadein{from{transform:translateY(-8px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.header{border-bottom:1px solid #18182A;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:54px;background:#0C0C18;position:sticky;top:0;z-index:100}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;letter-spacing:-0.5px}
+@keyframes glow{0%,100%{box-shadow:0 0 8px #FF3B5C33}50%{box-shadow:0 0 20px #FF3B5C77}}
+
+/* HEADER */
+.hdr{border-bottom:1px solid #18182A;padding:0 14px;display:flex;align-items:center;justify-content:space-between;height:52px;background:#0C0C18;position:sticky;top:0;z-index:100}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:-0.5px}
 .logo span{color:#FF3B5C}
-.tab-btn{position:relative;background:transparent;border:1px solid transparent;color:#555;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:10px;text-transform:uppercase;letter-spacing:1px;font-family:inherit;transition:all 0.2s}
+.tab-btn{position:relative;background:transparent;border:1px solid transparent;color:#555;padding:5px 9px;border-radius:6px;cursor:pointer;font-size:9px;text-transform:uppercase;letter-spacing:1px;font-family:inherit;transition:all 0.2s}
 .tab-btn.active{background:#18182A;border-color:#2A2A3E;color:#fff}
-.scan-btn{background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:10px;font-family:inherit;letter-spacing:0.8px;display:flex;align-items:center;gap:4px}
-.status-pill{display:flex;align-items:center;gap:4px;background:#0C0C18;border:1px solid #2A2A3E;border-radius:20px;padding:3px 8px}
-.status-dot{width:5px;height:5px;border-radius:50%;display:inline-block}
-.status-text{font-size:8px}
-.content{max-width:1200px;margin:0 auto;padding:16px}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.stat-card{background:#0C0C18;border:1px solid #18182A;border-radius:10px;padding:12px 14px}
-.stat-label{font-size:8px;color:#444;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
-.stat-value{font-size:22px;font-family:'Syne',sans-serif;font-weight:800}
-.cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.cat-btn{background:#0C0C18;border:1px solid #18182A;color:#666;padding:4px 10px;border-radius:20px;cursor:pointer;font-size:10px;font-family:inherit;white-space:nowrap;transition:all 0.2s}
-.cat-btn.active{background:#FF3B5C22;border-color:#FF3B5C;color:#FF3B5C}
-.filters{background:#0C0C18;border:1px solid #18182A;border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.plat-btn{background:#111;border:1px solid #222;color:#444;padding:3px 10px;border-radius:20px;cursor:pointer;font-size:10px;font-family:inherit;transition:all 0.2s}
-.deals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px}
-.deal-card{background:#0C0C18;border:1px solid #18182A;border-radius:12px;padding:14px;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden;animation:fadein 0.3s ease}
-.deal-card:hover{transform:translateY(-2px);border-color:#333}
-.deal-card.hot{border-color:#FF3B5C33}
+.scan-btn{background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:6px 12px;border-radius:7px;cursor:pointer;font-size:10px;font-family:inherit;display:flex;align-items:center;gap:4px}
+.notif-dot{position:absolute;top:-5px;right:-5px;background:#FF3B5C;color:#fff;border-radius:50%;width:14px;height:14px;font-size:8px;display:flex;align-items:center;justify-content:center}
+.status-pill{display:flex;align-items:center;gap:4px;border-radius:20px;padding:3px 8px;border:1px solid #2A2A3E}
+.content{max-width:900px;margin:0 auto;padding:14px}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+.stat{background:#0C0C18;border:1px solid #18182A;border-radius:9px;padding:10px 12px}
+.stat-l{font-size:8px;color:#444;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.stat-v{font-size:20px;font-family:'Syne',sans-serif;font-weight:800}
+
+/* FILTERS */
+.filters{background:#0C0C18;border:1px solid #18182A;border-radius:9px;padding:10px 12px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filter-btn{background:#111;border:1px solid #222;color:#555;padding:3px 9px;border-radius:20px;cursor:pointer;font-size:9px;font-family:inherit;transition:all 0.15s}
+.filter-btn.active{background:#FF3B5C22;border-color:#FF3B5C;color:#FF3B5C}
+.good-toggle{background:#A8FF3E22;border:1px solid #A8FF3E44;color:#A8FF3E;padding:4px 12px;border-radius:20px;cursor:pointer;font-size:9px;font-family:inherit;transition:all 0.15s}
+.good-toggle.off{background:#18182A;border-color:#2A2A3E;color:#555}
+
+/* DEAL CARDS */
+.deals{display:flex;flex-direction:column;gap:10px}
+.deal-card{background:#0C0C18;border-radius:12px;padding:14px;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden;animation:fadein 0.3s ease}
+.deal-card:hover{transform:translateY(-1px)}
+.deal-card.good{border:1px solid #A8FF3E44;animation:fadein 0.3s ease}
+.deal-card.bad{border:1px solid #18182A;opacity:0.75}
+.deal-card.hot{border:1px solid #FF3B5C44;animation:glow 2s ease-in-out infinite}
 .hot-bar{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#FF3B5C,#FF8C42)}
-.badge{font-size:9px;padding:3px 8px;border-radius:4px;letter-spacing:0.8px}
-.discount-badge{font-size:12px;font-weight:700;padding:2px 8px;border-radius:5px;font-family:'Syne',sans-serif}
-.deal-title{font-size:12px;font-weight:500;margin-bottom:3px;line-height:1.35}
-.deal-meta{font-size:9px;color:#444;margin-bottom:8px}
-.deal-price{font-size:19px;font-family:'Syne',sans-serif;font-weight:800;color:#A8FF3E}
-.deal-orig{font-size:11px;color:#2A2A3E;text-decoration:line-through;margin-left:7px}
-.deal-actions{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.view-btn{font-size:10px;padding:4px 10px;border-radius:6px;text-decoration:none;font-family:inherit}
-.ai-btn{background:#18182A;border:1px solid #2A2A3E;color:#888;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:10px;font-family:inherit}
-.empty-state{text-align:center;padding:60px 0;color:#444}
+.good-bar{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#A8FF3E,#00FF87)}
+
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.card-badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.badge{font-size:8px;padding:2px 7px;border-radius:4px;letter-spacing:0.8px}
+.verdict-badge{font-size:9px;padding:3px 8px;border-radius:5px;font-weight:700;letter-spacing:0.5px}
+.discount-badge{font-size:12px;font-weight:800;padding:3px 9px;border-radius:6px;font-family:'Syne',sans-serif}
+
+.deal-title{font-size:13px;font-weight:500;margin-bottom:3px;line-height:1.35}
+.deal-text{font-size:10px;color:#666;margin-bottom:6px;line-height:1.4}
+.deal-meta{font-size:9px;color:#444;margin-bottom:10px}
+
+.price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.price{font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:#A8FF3E}
+.price.no-price{color:#555;font-size:16px}
+.orig-price{font-size:11px;color:#2A2A3E;text-decoration:line-through}
+
+.conseil{background:#111120;border-left:2px solid #FF3B5C;padding:6px 10px;border-radius:0 6px 6px 0;font-size:10px;color:#C4C4D8;margin-bottom:10px;line-height:1.5}
+.conseil.good{border-left-color:#A8FF3E}
+
+.card-actions{display:flex;gap:8px;align-items:center}
+.contact-btn{flex:1;background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:8px;border-radius:7px;cursor:pointer;font-size:10px;font-family:inherit;font-weight:700;text-align:center;text-decoration:none;display:block}
+.ai-btn{background:#18182A;border:1px solid #2A2A3E;color:#888;padding:7px 12px;border-radius:7px;cursor:pointer;font-size:10px;font-family:inherit}
+.score-bar-wrap{display:flex;align-items:center;gap:5px}
+.score-bar{height:3px;width:50px;background:#18182A;border-radius:2px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px}
+
+/* EMPTY / LOADING */
+.empty{text-align:center;padding:60px 0;color:#444}
 .empty-icon{font-size:40px;margin-bottom:12px}
-.loading-state{text-align:center;padding:80px 0}
-.spin{animation:spin 1s linear infinite;display:inline-block;font-size:36px;margin-bottom:14px}
-/* Modal */
-.modal-overlay{position:fixed;inset:0;background:#000000E0;display:flex;align-items:center;justify-content:center;z-index:200;padding:16px}
+.loading{text-align:center;padding:60px 0}
+.spin{animation:spin 1s linear infinite;display:inline-block;font-size:32px;margin-bottom:12px}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:#000000E8;display:flex;align-items:center;justify-content:center;z-index:200;padding:14px}
 .modal{background:#0C0C18;border:1px solid #2A2A3E;border-radius:16px;padding:20px;max-width:480px;width:100%;max-height:92vh;overflow-y:auto;animation:fadein 0.2s ease}
-.modal-header{display:flex;justify-content:space-between;margin-bottom:12px}
-.close-btn{background:none;border:none;color:#555;cursor:pointer;font-size:15px}
+.modal-close{background:none;border:none;color:#555;cursor:pointer;font-size:15px}
 .modal-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:4px}
-.modal-meta{font-size:10px;color:#444;margin-bottom:14px}
-.modal-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:14px}
-.modal-price{font-size:28px;font-family:'Syne',sans-serif;font-weight:800;color:#A8FF3E}
-.platform-links{margin-bottom:12px}
-.plinks-title{font-size:9px;color:#444;letter-spacing:1px;margin-bottom:7px}
-.plinks-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.plink{padding:6px 10px;border-radius:7px;font-size:10px;font-family:inherit;text-decoration:none;display:flex;justify-content:space-between;transition:all 0.15s}
-.analyze-btn{width:100%;padding:10px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:6px;background:#18182A;border:1px solid #2A2A3E;color:#888;border-radius:8px;cursor:pointer;font-size:12px;font-family:inherit}
+.modal-text{font-size:11px;color:#666;margin-bottom:14px;line-height:1.5}
+.plinks{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.plink{padding:7px 10px;border-radius:7px;font-size:10px;font-family:inherit;text-decoration:none;display:flex;justify-content:space-between;align-items:center}
 .ai-result{background:#111120;border:1px solid #2A2A3E;border-radius:10px;padding:14px}
-.verdict-row{display:flex;justify-content:space-between;margin-bottom:10px}
-.verdict{font-family:'Syne',sans-serif;font-weight:800;font-size:14px}
-.score-text{font-size:11px;color:#666}
-.resume{font-size:12px;color:#8888AA;margin-bottom:10px;font-style:italic}
-.points-title{font-size:8px;letter-spacing:1px;margin-bottom:4px}
-.point{font-size:11px;margin-bottom:2px}
-.conseil-box{background:#0C0C18;border:1px solid #2A2A3E;border-radius:7px;padding:9px;margin-bottom:8px}
-.conseil-label{font-size:8px;color:#444;letter-spacing:1px;margin-bottom:3px}
-.conseil-text{font-size:12px;color:#E2E2EE}
-/* Chat */
-.chat-container{display:flex;flex-direction:column;height:calc(100vh - 110px)}
-.chat-header{margin-bottom:12px}
-.chat-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:3px}
-.chat-subtitle{font-size:10px;color:#444}
-.quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.quick-btn{background:#0C0C18;border:1px solid #18182A;color:#666;padding:4px 10px;border-radius:20px;cursor:pointer;font-size:10px;font-family:inherit;transition:all 0.15s}
-.quick-btn:hover{border-color:#FF3B5C44;color:#FF7080}
-.messages{flex:1;overflow-y:auto;background:#0C0C18;border:1px solid #18182A;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+
+/* CHAT */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 100px)}
+.messages{flex:1;overflow-y:auto;background:#0C0C18;border:1px solid #18182A;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:9px;margin-bottom:10px}
 .msg-row{display:flex}
 .msg-row.user{justify-content:flex-end}
-.msg-row.assistant{justify-content:flex-start}
-.msg-avatar{width:24px;height:24px;background:linear-gradient(135deg,#FF3B5C,#FF8C42);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;margin-right:7px;flex-shrink:0;align-self:flex-end}
-.msg-bubble{max-width:82%;padding:10px 14px;border-radius:12px;font-size:12px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
-.msg-bubble.user{background:#FF3B5C18;border:1px solid #FF3B5C33;color:#FFB0BC;border-bottom-right-radius:4px}
-.msg-bubble.assistant{background:#18182A;border:1px solid #2A2A3E;color:#C4C4D8;border-bottom-left-radius:4px}
-.typing{display:flex;gap:4px;padding:8px 12px;background:#18182A;border:1px solid #2A2A3E;border-radius:12px;width:fit-content}
-.typing-dot{width:5px;height:5px;border-radius:50%;background:#FF3B5C}
-.chat-input-row{display:flex;gap:8px}
-.chat-input{background:#111120;border:1px solid #2A2A3E;color:#E2E2EE;padding:10px 14px;border-radius:8px;font-size:13px;font-family:inherit;outline:none;flex:1}
-.send-btn{background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:11px;font-family:inherit}
-/* Alerts */
-.alerts-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.alerts-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800}
-.add-btn{background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:11px;font-family:inherit}
-.add-form{background:#0C0C18;border:1px solid #FF3B5C44;border-radius:10px;padding:14px;margin-bottom:14px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.form-label{font-size:9px;color:#555;letter-spacing:1px;margin-bottom:5px}
-.form-input{background:#111120;border:1px solid #2A2A3E;color:#E2E2EE;padding:9px 12px;border-radius:8px;font-size:12px;font-family:inherit;outline:none;width:100%}
-.form-btns{display:flex;gap:8px}
-.cancel-btn{background:#18182A;border:1px solid #2A2A3E;color:#888;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:11px;font-family:inherit}
-.alert-item{background:#0C0C18;border:1px solid #18182A;border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
-.alert-name{font-size:14px;font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px}
-.alert-price{background:#A8FF3E22;color:#A8FF3E;font-size:10px;padding:2px 8px;border-radius:4px}
-.toggle-btn{padding:4px 10px;border-radius:6px;cursor:pointer;font-size:9px;font-family:inherit;margin-right:6px}
-.del-btn{background:transparent;border:1px solid #2A2A3E;color:#444;padding:4px 9px;border-radius:6px;cursor:pointer}
-/* Notifs */
-.notifs-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.notif-item{background:#0C0C18;border-radius:8px;padding:10px 14px;margin-bottom:7px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all 0.15s}
-.notif-title{font-size:12px;margin-bottom:2px}
-.notif-msg{font-size:10px;color:#444}
-.notif-time{font-size:9px;color:#333;flex-shrink:0;margin-left:8px}
-.notif-dot{position:absolute;top:-5px;right:-5px;background:#FF3B5C;color:#fff;border-radius:50%;width:14px;height:14px;font-size:8px;display:flex;align-items:center;justify-content:center}
+.avatar{width:22px;height:22px;background:linear-gradient(135deg,#FF3B5C,#FF8C42);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;margin-right:6px;flex-shrink:0;align-self:flex-end}
+.bubble{max-width:83%;padding:9px 13px;border-radius:12px;font-size:11px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.bubble.user{background:#FF3B5C18;border:1px solid #FF3B5C33;color:#FFB0BC;border-bottom-right-radius:4px}
+.bubble.assistant{background:#18182A;border:1px solid #2A2A3E;color:#C4C4D8;border-bottom-left-radius:4px}
+.typing{display:flex;gap:3px;padding:8px 12px;background:#18182A;border:1px solid #2A2A3E;border-radius:12px}
+.tdot{width:5px;height:5px;border-radius:50%;background:#FF3B5C}
+.chat-row{display:flex;gap:8px}
+.chat-in{background:#111120;border:1px solid #2A2A3E;color:#E2E2EE;padding:9px 13px;border-radius:8px;font-size:12px;font-family:inherit;outline:none;flex:1}
+.send{background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:9px 14px;border-radius:8px;cursor:pointer;font-size:11px;font-family:inherit}
+
+/* ALERTS */
+.alert-item{background:#0C0C18;border:1px solid #18182A;border-radius:9px;padding:11px 13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.form-in{background:#111120;border:1px solid #2A2A3E;color:#E2E2EE;padding:8px 11px;border-radius:7px;font-size:12px;font-family:inherit;outline:none;width:100%}
 </style>
 </head>
 <body>
@@ -127,16 +118,9 @@ body{background:#080810;color:#E2E2EE;font-family:'DM Mono','Courier New',monosp
 <script>
 const SERVER = "https://tape-dealhunt-server-production.up.railway.app";
 
-const PLATFORMS = [
-  {id:"leboncoin",label:"Leboncoin",color:"#F56B2A"},
-  {id:"ricardo",label:"Ricardo.ch",color:"#E30613"},
-  {id:"anibis",label:"Anibis.ch",color:"#FFD200"},
-  {id:"vinted",label:"Vinted",color:"#09B1BA"},
-];
-
-const CATEGORIES = [
+const CATS = [
   {id:"all",label:"Tout",icon:"◈"},
-  {id:"tech",label:"Électronique",icon:"⚡"},
+  {id:"tech",label:"Tech",icon:"⚡"},
   {id:"toys",label:"Jouets",icon:"🧸"},
   {id:"vehicles_kids",label:"Véhicules enfants",icon:"🚗"},
   {id:"vehicles",label:"Véhicules",icon:"🏎"},
@@ -146,351 +130,357 @@ const CATEGORIES = [
   {id:"sports",label:"Sport",icon:"⚽"},
 ];
 
+const PLATS = [
+  {id:"vinted",label:"Vinted",color:"#09B1BA"},
+  {id:"leboncoin",label:"Leboncoin",color:"#F56B2A"},
+  {id:"ricardo",label:"Ricardo.ch",color:"#E30613"},
+  {id:"anibis",label:"Anibis.ch",color:"#FFD200"},
+];
+
 function getSearchUrls(title) {
-  const q = encodeURIComponent(title);
+  const q = encodeURIComponent(title||"");
   return [
-    {id:"vinted",label:"Vinted",color:"#09B1BA",url:`https://www.vinted.fr/catalog?search_text=${q}`},
-    {id:"leboncoin",label:"Leboncoin",color:"#F56B2A",url:`https://www.leboncoin.fr/recherche?text=${q}`},
-    {id:"facebook",label:"Facebook",color:"#1877F2",url:`https://www.facebook.com/marketplace/search?query=${q}`},
-    {id:"ricardo",label:"Ricardo.ch",color:"#E30613",url:`https://www.ricardo.ch/fr/s/${q}/`},
-    {id:"anibis",label:"Anibis.ch",color:"#FFD200",url:`https://www.anibis.ch/fr/s?q=${q}`},
+    {label:"Vinted",color:"#09B1BA",url:`https://www.vinted.fr/catalog?search_text=${q}`},
+    {label:"Leboncoin",color:"#F56B2A",url:`https://www.leboncoin.fr/recherche?text=${q}`},
+    {label:"Facebook",color:"#1877F2",url:`https://www.facebook.com/marketplace/search?query=${q}`},
+    {label:"Ricardo.ch",color:"#E30613",url:`https://www.ricardo.ch/fr/s/${q}/`},
+    {label:"Anibis.ch",color:"#FFD200",url:`https://www.anibis.ch/fr/s?q=${q}`},
   ];
 }
 
-let state = {
-  tab: "dashboard",
-  listings: [],
-  loading: true,
-  scanning: false,
-  serverStatus: "checking",
-  lastScan: null,
-  selectedCategory: "all",
-  selectedPlatforms: PLATFORMS.map(p=>p.id),
-  filterDiscount: 0,
-  selectedDeal: null,
-  dealAnalysis: null,
-  loadingAnalysis: false,
-  notifications: [],
-  alerts: [
+let S = {
+  tab:"deals",
+  deals:[],
+  loading:true,
+  serverOk:null,
+  lastRefresh:null,
+  cat:"all",
+  onlyGood:false,
+  sort:"recent",
+  selectedDeal:null,
+  dealAI:null,
+  loadingAI:false,
+  notifs:[],
+  alerts:[
     {id:1,keyword:"iphone",maxPrice:500,active:true},
     {id:2,keyword:"vélo enfant",maxPrice:200,active:true},
     {id:3,keyword:"lego",maxPrice:100,active:true},
   ],
-  showAddAlert: false,
-  newKeyword: "",
-  newMaxPrice: "",
-  chatMessages: [{role:"assistant",content:"Bonjour ! Je suis ton assistant DealHunt ⚡\n\nJe surveille Vinted, Leboncoin, Ricardo.ch et Anibis.ch en temps réel.\n\nPose-moi n'importe quelle question sur les annonces du moment !"}],
-  chatInput: "",
-  chatLoading: false,
+  showAddAlert:false,
+  newKw:"", newMp:"",
+  chatMsgs:[{role:"assistant",content:"Bonjour ! Je suis ton assistant DealHunt ⚡\n\nToutes tes notifications Leboncoin/Vinted sont analysées ici. Pose-moi n'importe quelle question sur les annonces reçues !"}],
+  chatIn:"",
+  chatLoading:false,
 };
 
-function setState(updates) {
-  Object.assign(state, updates);
-  render();
-}
+function set(u){Object.assign(S,u);render();}
 
-async function fetchListings() {
+async function loadDeals(){
   try {
     const res = await fetch(`${SERVER}/api/deals`);
-    if (!res.ok) throw new Error("Server error");
-    const data = await res.json();
-    return data.listings || [];
-  } catch(e) { return null; }
-}
-
-async function runScan() {
-  setState({scanning:true});
-  const results = await fetchListings();
-  if (results && results.length > 0) {
-    setState({listings:results, serverStatus:"online", lastScan:new Date(), scanning:false, loading:false});
-    const hot = results.filter(l=>l.discount>35).slice(0,2);
-    if (hot.length) {
-      const notifs = hot.map((d,i)=>({id:Date.now()+i,title:`🔥 ${d.title}`,message:`${d.price}€ sur ${d.platformLabel} (-${d.discount}%)`,time:"À l'instant",read:false}));
-      setState({notifications:[...notifs,...state.notifications].slice(0,30)});
-    }
-  } else {
-    setState({serverStatus:"error", scanning:false, loading:false});
-    addNotif("⚠️ Plateformes inaccessibles","Les sites bloquent le scraping temporairement.");
+    if(!res.ok) throw new Error();
+    const d = await res.json();
+    set({deals:d.listings||[], loading:false, serverOk:true, lastRefresh:new Date()});
+  } catch(e){
+    set({loading:false, serverOk:false});
   }
 }
 
-function addNotif(title, message) {
-  setState({notifications:[{id:Date.now(),title,message,time:"À l'instant",read:false},...state.notifications].slice(0,30)});
-}
-
-async function analyzeWithAI(deal) {
-  setState({loadingAnalysis:true, dealAnalysis:null});
+async function analyzeWithAI(deal){
+  set({loadingAI:true, dealAI:null});
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
         model:"claude-sonnet-4-20250514",
-        max_tokens:800,
-        messages:[{role:"user",content:`Expert en bonnes affaires. Analyse : "${deal.title}" à ${deal.price}€ (marché ~${deal.originalPrice}€, -${deal.discount}%). État: ${deal.condition}. Plateforme: ${deal.platformLabel}. Réponds UNIQUEMENT en JSON sans backticks: {"verdict":"EXCELLENT|BON|MOYEN|RISQUÉ","score":0-100,"resume":"1 phrase","points_positifs":["..."],"points_attention":["..."],"conseil_achat":"action","prix_max_negociation":nombre}`}]
+        max_tokens:600,
+        messages:[{role:"user",content:`Expert en bonnes affaires. Analyse cette annonce reçue via notification:\nTitre: "${deal.title}"\nTexte: "${deal.text||""}"\nPrix: ${deal.price}€ (marché estimé: ${deal.originalPrice}€, -${deal.discount}%)\nPlateforme: ${deal.platformLabel}\n\nRéponds UNIQUEMENT en JSON sans backticks:\n{"verdict":"EXCELLENT|BON|MOYEN|RISQUÉ","score":0-100,"resume":"1 phrase percutante","points_positifs":["..."],"points_attention":["..."],"conseil":"action concrète recommandée","prix_max":nombre ou null}`}]
       })
     });
-    const data = await res.json();
-    const txt = data.content.map(i=>i.text||"").join("");
-    setState({dealAnalysis:JSON.parse(txt.replace(/```json|```/g,"").trim()), loadingAnalysis:false});
-  } catch(e) {
-    setState({dealAnalysis:{verdict:"ERREUR",score:0,resume:"Analyse indisponible.",points_positifs:[],points_attention:[],conseil_achat:"",prix_max_negociation:null}, loadingAnalysis:false});
+    const d = await res.json();
+    const txt = d.content.map(i=>i.text||"").join("");
+    set({dealAI:JSON.parse(txt.replace(/```json|```/g,"").trim()), loadingAI:false});
+  } catch(e){
+    set({dealAI:{verdict:"ERREUR",score:0,resume:"Analyse indisponible.",points_positifs:[],points_attention:[],conseil:"",prix_max:null},loadingAI:false});
   }
 }
 
-async function sendChat(msg) {
-  if (!msg.trim() || state.chatLoading) return;
-  const topDeals = state.listings.slice(0,15).map(l=>`- ${l.title} | ${l.price}€ (-${l.discount}%) | ${l.platformLabel} | ${l.location}`).join("\n");
-  const updated = [...state.chatMessages,{role:"user",content:msg}];
-  setState({chatMessages:updated, chatInput:"", chatLoading:true});
+async function sendChat(msg){
+  if(!msg.trim()||S.chatLoading) return;
+  const topDeals = S.deals.slice(0,15).map(d=>`- ${d.title} | ${d.price>0?d.price+"€":"prix inconnu"} | -${d.discount}% | ${d.platformLabel} | ${d.isGoodDeal?"✅ BONNE AFFAIRE":"❌"}`).join("\n");
+  const updated = [...S.chatMsgs,{role:"user",content:msg}];
+  set({chatMsgs:updated, chatIn:"", chatLoading:true});
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
         model:"claude-sonnet-4-20250514",
-        max_tokens:800,
-        system:`Tu es l'assistant IA de DealHunt. Tu analyses de vraies annonces de Vinted, Leboncoin, Ricardo.ch et Anibis.ch.\n\nAnnonces actuelles:\n${topDeals}\n\nSois direct et concis.`,
+        max_tokens:600,
+        system:`Tu es l'assistant DealHunt. Tu analyses les notifications d'annonces reçues de Vinted/Leboncoin/Ricardo sur le téléphone de l'utilisateur.\n\nDernières annonces reçues:\n${topDeals}\n\nSois direct, concis et utile. Donne des conseils actionables.`,
         messages:updated.map(m=>({role:m.role,content:m.content}))
       })
     });
-    const data = await res.json();
-    setState({chatMessages:[...updated,{role:"assistant",content:data.content.map(i=>i.text||"").join("")}], chatLoading:false});
-  } catch(e) {
-    setState({chatMessages:[...updated,{role:"assistant",content:"Désolé, une erreur est survenue."}], chatLoading:false});
+    const d = await res.json();
+    set({chatMsgs:[...updated,{role:"assistant",content:d.content.map(i=>i.text||"").join("")}],chatLoading:false});
+  } catch(e){
+    set({chatMsgs:[...updated,{role:"assistant",content:"Désolé, erreur. Réessaie !"}],chatLoading:false});
   }
 }
 
-function verdictColor(v) {
-  return {EXCELLENT:"#00FF87",BON:"#A8FF3E",MOYEN:"#FFD200","RISQUÉ":"#FF3B5C"}[v]||"#888";
+function vc(v){return{EXCELLENT:"#00FF87",BON:"#A8FF3E",MOYEN:"#FFD200","RISQUÉ":"#FF3B5C"}[v]||"#888";}
+function nc(){return S.notifs.filter(n=>!n.read).length;}
+
+function filteredDeals(){
+  let d = [...S.deals];
+  if(S.cat!=="all") d=d.filter(x=>x.category===S.cat);
+  if(S.onlyGood) d=d.filter(x=>x.isGoodDeal);
+  if(S.sort==="discount") d.sort((a,b)=>b.discount-a.discount);
+  else if(S.sort==="price") d.sort((a,b)=>a.price-b.price);
+  else d.sort((a,b)=>new Date(b.receivedAt)-new Date(a.receivedAt));
+  return d;
 }
 
-function filteredListings() {
-  return state.listings.filter(l=>
-    (state.selectedCategory==="all"||l.category===state.selectedCategory) &&
-    state.selectedPlatforms.includes(l.platform) &&
-    l.discount>=state.filterDiscount
-  );
-}
+function render(){
+  const fd = filteredDeals();
+  const good = S.deals.filter(d=>d.isGoodDeal).length;
+  const bestDisc = S.deals.length ? Math.max(...S.deals.map(d=>d.discount)) : 0;
+  const n = nc();
 
-const notifCount = ()=>state.notifications.filter(n=>!n.read).length;
-
-function render() {
-  const app = document.getElementById("app");
-  const fl = filteredListings();
-  const nc = notifCount();
-
-  app.innerHTML = `
-  <!-- HEADER -->
-  <div class="header">
+  document.getElementById("app").innerHTML = `
+  <div class="hdr">
     <div style="display:flex;align-items:center;gap:8px">
-      <div style="width:28px;height:28px;background:linear-gradient(135deg,#FF3B5C,#FF8C42);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px">⚡</div>
+      <div style="width:26px;height:26px;background:linear-gradient(135deg,#FF3B5C,#FF8C42);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px">⚡</div>
       <span class="logo">DEAL<span>HUNT</span></span>
     </div>
     <div style="display:flex;gap:3px">
-      ${[["dashboard","Deals"],["chat","✦ IA"],["alerts","Alertes"],["notifications","🔔"]].map(([t,l])=>`
-        <button class="tab-btn ${state.tab===t?"active":""}" onclick="setState({tab:'${t}'})" style="position:relative">
-          ${t==="notifications"&&nc>0?`<div class="notif-dot">${nc}</div>`:""}
-          ${l}
-        </button>
-      `).join("")}
+      ${[["deals","📋 Journal"],["chat","✦ IA"],["alerts","Alertes"],["notifs","🔔"]].map(([t,l])=>`
+        <button class="tab-btn ${S.tab===t?"active":""}" onclick="set({tab:'${t}'})">
+          ${t==="notifs"&&n>0?`<div class="notif-dot">${n}</div>`:""}${l}
+        </button>`).join("")}
     </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <div class="status-pill" style="border-color:${state.serverStatus==="online"?"#A8FF3E44":state.serverStatus==="error"?"#FF3B5C44":"#2A2A3E"}">
-        <span class="status-dot" style="background:${state.serverStatus==="online"?"#A8FF3E":state.serverStatus==="error"?"#FF3B5C":"#FFD200"};animation:${state.serverStatus==="checking"?"pulse 1s infinite":"none"}"></span>
-        <span class="status-text" style="color:${state.serverStatus==="online"?"#A8FF3E":state.serverStatus==="error"?"#FF3B5C":"#FFD200"}">${state.serverStatus==="online"?"EN LIGNE":state.serverStatus==="error"?"ERREUR":"..."}</span>
+    <div style="display:flex;align-items:center;gap:7px">
+      <div class="status-pill" style="border-color:${S.serverOk===true?"#A8FF3E44":S.serverOk===false?"#FF3B5C44":"#2A2A3E"}">
+        <span style="width:5px;height:5px;border-radius:50%;background:${S.serverOk===true?"#A8FF3E":S.serverOk===false?"#FF3B5C":"#FFD200"};display:inline-block;animation:${S.serverOk===null?"pulse 1s infinite":"none"}"></span>
+        <span style="font-size:8px;color:${S.serverOk===true?"#A8FF3E":S.serverOk===false?"#FF3B5C":"#FFD200"}">${S.serverOk===true?"EN LIGNE":S.serverOk===false?"ERREUR":"..."}</span>
       </div>
-      <button class="scan-btn" onclick="runScan()" ${state.scanning?"disabled":""} style="opacity:${state.scanning?0.7:1}">
-        <span style="display:inline-block;animation:${state.scanning?"spin 0.8s linear infinite":"none"}">⟳</span>
-        ${state.scanning?"SCAN...":"SCANNER"}
+      <button class="scan-btn" onclick="loadDeals()">
+        <span style="font-size:12px">⟳</span> REFRESH
       </button>
     </div>
   </div>
 
   <div class="content">
 
-  <!-- DASHBOARD -->
-  ${state.tab==="dashboard"?`
-    ${state.loading?`
-      <div class="loading-state">
-        <div class="spin">⟳</div>
-        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:8px">Scan en cours...</div>
-        <div style="font-size:12px;color:#555">Recherche sur Vinted, Leboncoin, Ricardo, Anibis</div>
-      </div>
-    `:state.serverStatus==="error"&&state.listings.length===0?`
-      <div class="empty-state">
-        <div class="empty-icon">⚠️</div>
-        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#FF3B5C;margin-bottom:8px">Plateformes inaccessibles</div>
-        <div style="font-size:12px;color:#555;margin-bottom:20px">Les sites bloquent temporairement le scraping.</div>
-        <button class="scan-btn" onclick="runScan()" style="margin:0 auto">⟳ Réessayer</button>
-      </div>
-    `:`
-      <div class="stats-grid">
-        ${[["Annonces","${state.listings.length}","#A8FF3E"],["Deals >30%","${state.listings.filter(l=>l.discount>30).length}","#FF3B5C"],["Meilleure rédu.","${Math.max(0,...state.listings.map(l=>l.discount))}%","#00C8FF"]].map(([l,v,c])=>`
-          <div class="stat-card"><div class="stat-label">${l}</div><div class="stat-value" style="color:${c}">${v}</div></div>
-        `).join("")}
-      </div>
-      ${state.lastScan?`<div style="font-size:9px;color:#444;margin-bottom:12px;text-align:right">Scan: ${state.lastScan.toLocaleTimeString("fr-FR")}</div>`:""}
-      <div class="cats">
-        ${CATEGORIES.map(c=>`<button class="cat-btn ${state.selectedCategory===c.id?"active":""}" onclick="setState({selectedCategory:'${c.id}'})">${c.icon} ${c.label}</button>`).join("")}
-      </div>
-      <div class="filters">
-        ${PLATFORMS.map(p=>`<button class="plat-btn" style="background:${state.selectedPlatforms.includes(p.id)?p.color+"22":"#111"};border-color:${state.selectedPlatforms.includes(p.id)?p.color:"#222"};color:${state.selectedPlatforms.includes(p.id)?p.color:"#444"}" onclick="togglePlat('${p.id}')">${p.label}</button>`).join("")}
-        <div style="margin-left:auto;display:flex;align-items:center;gap:7px">
-          <span style="font-size:9px;color:#555">Rédu. min</span>
-          <input type="range" min="0" max="60" value="${state.filterDiscount}" oninput="setState({filterDiscount:+this.value})" style="accent-color:#FF3B5C;width:70px"/>
-          <span style="font-size:11px;color:#FF3B5C;min-width:26px">${state.filterDiscount}%</span>
-        </div>
-      </div>
-      <div style="font-size:10px;color:#444;margin-bottom:12px">${fl.length} annonce${fl.length>1?"s":""}</div>
-      ${fl.length===0?`<div class="empty-state"><div class="empty-icon">🔍</div><div>Aucune annonce pour ces filtres</div><button onclick="setState({selectedCategory:'all',filterDiscount:0})" style="margin-top:12px;background:#18182A;border:1px solid #2A2A3E;color:#888;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:10px">Réinitialiser</button></div>`:`
-        <div class="deals-grid">
-          ${fl.map(deal=>`
-            <div class="deal-card ${deal.isHot?"hot":""}" onclick="openDeal('${deal.id}')">
-              ${deal.isHot?`<div class="hot-bar"></div>`:""}
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px">
-                <span class="badge" style="background:${deal.platformColor||"#888"}22;color:${deal.platformColor||"#888"}">${(deal.platformLabel||"").toUpperCase()}</span>
-                ${deal.discount>0?`<span class="discount-badge" style="background:${deal.discount>40?"#FF3B5C22":deal.discount>20?"#FFD20022":"#18182A"};color:${deal.discount>40?"#FF3B5C":deal.discount>20?"#FFD200":"#666"}">-${deal.discount}%</span>`:""}
-              </div>
-              <div class="deal-title">${deal.title||""}</div>
-              <div class="deal-meta">${deal.condition||""} • ${deal.location||""} • ${deal.postedAt||""}</div>
-              <div style="display:flex;align-items:baseline">
-                <span class="deal-price">${deal.price||0}€</span>
-                ${deal.originalPrice>deal.price?`<span class="deal-orig">${deal.originalPrice}€</span>`:""}
-              </div>
-              <div class="deal-actions">
-                <a href="${deal.url||"#"}" target="_blank" rel="noopener noreferrer" class="view-btn" style="background:${deal.platformColor||"#888"}22;border:1px solid ${deal.platformColor||"#888"}44;color:${deal.platformColor||"#888"}" onclick="event.stopPropagation()">Voir ↗</a>
-                <button class="ai-btn" onclick="event.stopPropagation();openDeal('${deal.id}');analyzeNow('${deal.id}')">✦ IA</button>
-              </div>
-            </div>
-          `).join("")}
-        </div>
-      `}
-    `}
-  `:""}
+  ${S.tab==="deals"?`
+    <div class="stats">
+      <div class="stat"><div class="stat-l">Notifications</div><div class="stat-v" style="color:#A8FF3E">${S.deals.length}</div></div>
+      <div class="stat"><div class="stat-l">Bonnes affaires</div><div class="stat-v" style="color:#FF3B5C">${good}</div></div>
+      <div class="stat"><div class="stat-l">Meilleure rédu.</div><div class="stat-v" style="color:#00C8FF">${bestDisc}%</div></div>
+      <div class="stat"><div class="stat-l">Dernière MAJ</div><div class="stat-v" style="font-size:11px;color:#FFD200">${S.lastRefresh?S.lastRefresh.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"--:--"}</div></div>
+    </div>
 
-  <!-- CHAT -->
-  ${state.tab==="chat"?`
-    <div class="chat-container">
-      <div class="chat-header">
-        <div class="chat-title">✦ Assistant <span style="color:#FF3B5C">IA</span></div>
-        <div class="chat-subtitle">Connecté à ${state.listings.length} annonces en temps réel</div>
-      </div>
-      <div class="quick-btns">
-        ${["Meilleures affaires ?","Véhicules enfants ?","Meilleur deal tech ?","Quoi revendre ?"].map(q=>`<button class="quick-btn" onclick="setState({chatInput:'${q}'})">${q}</button>`).join("")}
-      </div>
-      <div class="messages" id="chat-msgs">
-        ${state.chatMessages.map(m=>`
-          <div class="msg-row ${m.role}">
-            ${m.role==="assistant"?`<div class="msg-avatar">⚡</div>`:""}
-            <div class="msg-bubble ${m.role}">${m.content.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}</div>
-          </div>
-        `).join("")}
-        ${state.chatLoading?`<div class="msg-row assistant"><div class="msg-avatar" style="animation:pulse 1s infinite">⚡</div><div class="typing">${[0,200,400].map(d=>`<div class="typing-dot" style="animation:pulse 1s infinite ${d}ms"></div>`).join("")}</div></div>`:""}
-      </div>
-      <div class="chat-input-row">
-        <input class="chat-input" id="chat-in" placeholder="Pose une question sur les annonces..." value="${state.chatInput}" oninput="state.chatInput=this.value" onkeydown="if(event.key==='Enter'&&!event.shiftKey){sendChat(state.chatInput)}"/>
-        <button class="send-btn" onclick="sendChat(state.chatInput)" ${state.chatLoading||!state.chatInput.trim()?"disabled":""} style="opacity:${state.chatLoading||!state.chatInput.trim()?0.5:1}">↵</button>
+    <div class="filters">
+      <button class="good-toggle ${S.onlyGood?"":"off"}" onclick="set({onlyGood:!S.onlyGood})">
+        ${S.onlyGood?"✅ Bonnes affaires":"Toutes les notifs"}
+      </button>
+      <select onchange="set({sort:this.value})" style="background:#111120;border:1px solid #2A2A3E;color:#888;padding:4px 8px;border-radius:6px;font-family:inherit;font-size:9px;outline:none">
+        <option value="recent" ${S.sort==="recent"?"selected":""}>Plus récentes</option>
+        <option value="discount" ${S.sort==="discount"?"selected":""}>Meilleure réduction</option>
+        <option value="price" ${S.sort==="price"?"selected":""}>Prix croissant</option>
+      </select>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        ${CATS.map(c=>`<button class="filter-btn ${S.cat===c.id?"active":""}" onclick="set({cat:'${c.id}'})">${c.icon} ${c.label}</button>`).join("")}
       </div>
     </div>
-  `:""}
 
-  <!-- ALERTS -->
-  ${state.tab==="alerts"?`
-    <div class="alerts-header">
-      <div class="alerts-title">Alertes <span style="color:#FF3B5C">(${state.alerts.length})</span></div>
-      <button class="add-btn" onclick="setState({showAddAlert:!state.showAddAlert})">+ Ajouter</button>
-    </div>
-    ${state.showAddAlert?`
-      <div class="add-form">
-        <div class="form-row">
-          <div><div class="form-label">MOT-CLÉ</div><input class="form-input" id="kw-in" placeholder="ex: iPhone 14" value="${state.newKeyword}" oninput="state.newKeyword=this.value"/></div>
-          <div><div class="form-label">PRIX MAX (€)</div><input class="form-input" id="mp-in" type="number" placeholder="ex: 400" value="${state.newMaxPrice}" oninput="state.newMaxPrice=this.value"/></div>
-        </div>
-        <div class="form-btns">
-          <button class="add-btn" onclick="addAlert()">Créer</button>
-          <button class="cancel-btn" onclick="setState({showAddAlert:false})">Annuler</button>
-        </div>
+    <div style="font-size:9px;color:#444;margin-bottom:10px">${fd.length} annonce${fd.length>1?"s":""} • ${S.deals.length} au total</div>
+
+    ${S.loading?`<div class="loading"><div class="spin">⟳</div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:6px">Chargement...</div><div style="font-size:11px;color:#555">Connexion au serveur Railway</div></div>`:""}
+
+    ${!S.loading&&S.deals.length===0?`
+      <div class="empty">
+        <div class="empty-icon">📭</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:8px">Aucune notification reçue</div>
+        <div style="font-size:11px;color:#555;margin-bottom:6px">Active les alertes sur Vinted et Leboncoin.</div>
+        <div style="font-size:11px;color:#444">MacroDroid enverra automatiquement chaque annonce ici pour analyse.</div>
       </div>
     `:""}
-    ${state.alerts.map(a=>`
-      <div class="alert-item" style="opacity:${a.active?1:0.5}">
-        <div>
-          <div class="alert-name">${a.keyword}</div>
-          <span class="alert-price">Max ${a.maxPrice===9999?"∞":a.maxPrice+"€"}</span>
-        </div>
-        <div>
-          <button class="toggle-btn" style="background:${a.active?"#A8FF3E22":"#18182A"};border:1px solid ${a.active?"#A8FF3E":"#2A2A3E"};color:${a.active?"#A8FF3E":"#555"}" onclick="toggleAlert(${a.id})">${a.active?"● ON":"○ OFF"}</button>
-          <button class="del-btn" onclick="deleteAlert(${a.id})">✕</button>
-        </div>
+
+    ${!S.loading&&fd.length===0&&S.deals.length>0?`
+      <div class="empty">
+        <div class="empty-icon">🔍</div>
+        <div>Aucune annonce pour ces filtres</div>
+        <button onclick="set({cat:'all',onlyGood:false})" style="margin-top:12px;background:#18182A;border:1px solid #2A2A3E;color:#888;padding:7px 14px;border-radius:7px;cursor:pointer;font-family:inherit;font-size:10px">Réinitialiser</button>
       </div>
-    `).join("")}
-    <div style="margin-top:16px;background:#0C0C18;border:1px solid #18182A;border-radius:10px;padding:14px">
-      <div style="font-size:9px;color:#555;letter-spacing:1px;margin-bottom:6px">ℹ️ FONCTIONNEMENT</div>
-      <div style="font-size:11px;color:#666;line-height:1.6">MacroDroid intercepte les notifications Vinted/Leboncoin et les envoie au serveur Railway pour analyse IA. Les bonnes affaires apparaissent ici automatiquement.</div>
+    `:""}
+
+    <div class="deals">
+      ${fd.map(deal=>`
+        <div class="deal-card ${deal.isHot?"hot":deal.isGoodDeal?"good":"bad"}">
+          ${deal.isHot?`<div class="hot-bar"></div>`:deal.isGoodDeal?`<div class="good-bar"></div>`:""}
+          
+          <div class="card-top">
+            <div class="card-badges">
+              <span class="badge" style="background:${deal.platformColor||"#888"}22;color:${deal.platformColor||"#888"}">${(deal.platformLabel||"").toUpperCase()}</span>
+              ${deal.isGoodDeal
+                ?`<span class="verdict-badge" style="background:#A8FF3E22;color:#A8FF3E">✅ BONNE AFFAIRE</span>`
+                :`<span class="verdict-badge" style="background:#FF3B5C11;color:#555">❌ Pas rentable</span>`
+              }
+              ${deal.aiVerdict?`<span class="verdict-badge" style="background:${vc(deal.aiVerdict.verdict)}22;color:${vc(deal.aiVerdict.verdict)}">${deal.aiVerdict.emoji||""} ${deal.aiVerdict.verdict}</span>`:""}
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              ${deal.discount>0?`<span class="discount-badge" style="background:${deal.discount>40?"#FF3B5C22":deal.discount>20?"#FFD20022":"#18182A"};color:${deal.discount>40?"#FF3B5C":deal.discount>20?"#FFD200":"#555"}">-${deal.discount}%</span>`:""}
+            </div>
+          </div>
+
+          <div class="deal-title">${deal.title||"Annonce"}</div>
+          ${deal.text&&deal.text!==deal.title?`<div class="deal-text">${deal.text}</div>`:""}
+          <div class="deal-meta">${deal.platformLabel||""} • ${deal.postedAt||""} • cat: ${deal.category||"?"}</div>
+
+          <div class="price-row">
+            ${deal.price>0
+              ?`<span class="price">${deal.price}€</span>${deal.originalPrice>deal.price?`<span class="orig-price">${deal.originalPrice}€ estimé</span>`:""}`
+              :`<span class="price no-price">Prix non détecté</span>`
+            }
+          </div>
+
+          ${deal.aiVerdict?.conseil?`<div class="conseil ${deal.isGoodDeal?"good":""}">${deal.aiVerdict.conseil}</div>`:""}
+          ${deal.aiVerdict?.risques&&deal.aiVerdict.risques.length>2?`<div style="font-size:10px;color:#775533;margin-bottom:8px">⚠ ${deal.aiVerdict.risques}</div>`:""}
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-fill" style="width:${deal.score}%;background:${deal.score>75?"#A8FF3E":deal.score>50?"#FFD200":"#FF3B5C"}"></div></div>
+              <span style="font-size:9px;color:#444">${deal.score}/100</span>
+            </div>
+            <span style="font-size:9px;color:#444">${new Date(deal.receivedAt).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</span>
+          </div>
+
+          <div class="card-actions">
+            <button class="ai-btn" onclick="set({selectedDeal:${JSON.stringify(deal).replace(/"/g,"&quot;")}});analyzeWithAI(S.selectedDeal)">✦ Analyser</button>
+            <button onclick="set({selectedDeal:${JSON.stringify(deal).replace(/"/g,"&quot;")},dealAI:null})" style="background:#18182A;border:1px solid #2A2A3E;color:#888;padding:7px 12px;border-radius:7px;cursor:pointer;font-size:10px;font-family:inherit">Voir détails →</button>
+          </div>
+        </div>
+      `).join("")}
     </div>
   `:""}
 
-  <!-- NOTIFICATIONS -->
-  ${state.tab==="notifications"?`
-    <div class="notifs-header">
-      <div class="alerts-title">Notifications <span style="color:#FF3B5C">(${nc})</span></div>
-      <button class="cancel-btn" onclick="markAllRead()">Tout lire</button>
+  ${S.tab==="chat"?`
+    <div class="chat-wrap">
+      <div style="margin-bottom:10px">
+        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:3px">✦ Assistant <span style="color:#FF3B5C">IA</span></div>
+        <div style="font-size:10px;color:#444">${S.deals.length} notifications analysées disponibles</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+        ${["Meilleures affaires ?","Risques à éviter ?","Que vaut cette annonce ?","Quoi acheter en priorité ?"].map(q=>`<button onclick="set({chatIn:'${q}'})" style="background:#0C0C18;border:1px solid #18182A;color:#666;padding:4px 9px;border-radius:20px;cursor:pointer;font-size:9px;font-family:inherit">${q}</button>`).join("")}
+      </div>
+      <div class="messages" id="msgs">
+        ${S.chatMsgs.map(m=>`
+          <div class="msg-row ${m.role}">
+            ${m.role==="assistant"?`<div class="avatar">⚡</div>`:""}
+            <div class="bubble ${m.role}">${m.content.replace(/</g,"&lt;").replace(/\n/g,"<br/>")}</div>
+          </div>`).join("")}
+        ${S.chatLoading?`<div class="msg-row assistant"><div class="avatar" style="animation:pulse 1s infinite">⚡</div><div class="typing">${[0,200,400].map(d=>`<div class="tdot" style="animation:pulse 1s infinite ${d}ms"></div>`).join("")}</div></div>`:""}
+      </div>
+      <div class="chat-row">
+        <input class="chat-in" id="ci" placeholder="Pose une question sur tes annonces..." value="${S.chatIn}" oninput="S.chatIn=this.value" onkeydown="if(event.key==='Enter')sendChat(S.chatIn)"/>
+        <button class="send" onclick="sendChat(S.chatIn)" ${S.chatLoading||!S.chatIn.trim()?"disabled":""} style="opacity:${S.chatLoading||!S.chatIn.trim()?0.5:1}">↵</button>
+      </div>
     </div>
-    ${state.notifications.length===0?`<div class="empty-state"><div class="empty-icon">🔔</div><div>Aucune notification</div><div style="font-size:11px;color:#2A2A3E;margin-top:4px">Lance un scan pour détecter des bonnes affaires</div></div>`:`
-      ${state.notifications.map(n=>`
-        <div class="notif-item" style="border:1px solid ${n.read?"#18182A":"#FF3B5C44"};border-left:3px solid ${n.read?"#18182A":"#FF3B5C"}" onclick="markRead(${n.id})">
-          <div>
-            <div class="notif-title" style="color:${n.read?"#555":"#E2E2EE"}">${n.title}</div>
-            <div class="notif-msg">${n.message}</div>
+  `:""}
+
+  ${S.tab==="alerts"?`
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800">Alertes <span style="color:#FF3B5C">(${S.alerts.length})</span></div>
+        <button onclick="set({showAddAlert:!S.showAddAlert})" style="background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:7px 14px;border-radius:7px;cursor:pointer;font-size:10px;font-family:inherit">+ Ajouter</button>
+      </div>
+      ${S.showAddAlert?`
+        <div style="background:#0C0C18;border:1px solid #FF3B5C44;border-radius:9px;padding:13px;margin-bottom:13px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+            <div><div style="font-size:8px;color:#555;letter-spacing:1px;margin-bottom:4px">MOT-CLÉ</div><input class="form-in" id="kw" placeholder="ex: iPhone 14" value="${S.newKw}" oninput="S.newKw=this.value"/></div>
+            <div><div style="font-size:8px;color:#555;letter-spacing:1px;margin-bottom:4px">PRIX MAX (€)</div><input class="form-in" id="mp" type="number" placeholder="ex: 400" value="${S.newMp}" oninput="S.newMp=this.value"/></div>
           </div>
-          <div class="notif-time">${n.time}</div>
-        </div>
-      `).join("")}
-    `}
+          <div style="display:flex;gap:8px">
+            <button onclick="addAlert()" style="background:linear-gradient(135deg,#FF3B5C,#FF8C42);border:none;color:#fff;padding:7px 14px;border-radius:7px;cursor:pointer;font-size:10px;font-family:inherit">Créer</button>
+            <button onclick="set({showAddAlert:false})" style="background:#18182A;border:1px solid #2A2A3E;color:#888;padding:7px 14px;border-radius:7px;cursor:pointer;font-size:10px;font-family:inherit">Annuler</button>
+          </div>
+        </div>`:""}
+      ${S.alerts.map(a=>`
+        <div class="alert-item" style="opacity:${a.active?1:0.5}">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px">${a.keyword}</div>
+            <span style="background:#A8FF3E22;color:#A8FF3E;font-size:9px;padding:2px 7px;border-radius:4px">Max ${a.maxPrice===9999?"∞":a.maxPrice+"€"}</span>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button onclick="toggleAlert(${a.id})" style="background:${a.active?"#A8FF3E22":"#18182A"};border:1px solid ${a.active?"#A8FF3E":"#2A2A3E"};color:${a.active?"#A8FF3E":"#555"};padding:4px 9px;border-radius:5px;cursor:pointer;font-size:9px;font-family:inherit">${a.active?"● ON":"○ OFF"}</button>
+            <button onclick="delAlert(${a.id})" style="background:transparent;border:1px solid #2A2A3E;color:#444;padding:4px 8px;border-radius:5px;cursor:pointer">✕</button>
+          </div>
+        </div>`).join("")}
+      <div style="margin-top:14px;background:#0C0C18;border:1px solid #18182A;border-radius:9px;padding:13px">
+        <div style="font-size:8px;color:#555;letter-spacing:1px;margin-bottom:6px">ℹ️ COMMENT ÇA MARCHE</div>
+        <div style="font-size:10px;color:#555;line-height:1.6">MacroDroid intercepte tes notifications Vinted/Leboncoin → les envoie au serveur Railway → analyse IA automatique → apparaît dans le journal avec verdict et conseils.</div>
+      </div>
+    </div>
+  `:""}
+
+  ${S.tab==="notifs"?`
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px">
+        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800">Notifications <span style="color:#FF3B5C">(${nc()})</span></div>
+        <button onclick="set({notifs:S.notifs.map(n=>({...n,read:true}))})" style="background:#18182A;border:1px solid #2A2A3E;color:#888;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:9px;font-family:inherit">Tout lire</button>
+      </div>
+      ${S.notifs.length===0?`<div class="empty"><div class="empty-icon">🔔</div><div>Aucune notification système</div></div>`:`
+        ${S.notifs.map(n=>`
+          <div onclick="set({notifs:S.notifs.map(x=>x.id===${n.id}?{...x,read:true}:x)})" style="background:#0C0C18;border:1px solid ${n.read?"#18182A":"#FF3B5C44"};border-left:3px solid ${n.read?"#18182A":"#FF3B5C"};border-radius:8px;padding:10px 13px;margin-bottom:7px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:11px;color:${n.read?"#555":"#E2E2EE"};margin-bottom:2px">${n.title}</div><div style="font-size:10px;color:#444">${n.message}</div></div>
+            <span style="font-size:9px;color:#333;flex-shrink:0;margin-left:8px">${n.time}</span>
+          </div>`).join("")}
+      `}
+    </div>
   `:""}
 
   </div>
 
-  <!-- MODAL -->
-  ${state.selectedDeal?`
-    <div class="modal-overlay" onclick="setState({selectedDeal:null,dealAnalysis:null})">
+  ${S.selectedDeal?`
+    <div class="overlay" onclick="set({selectedDeal:null,dealAI:null})">
       <div class="modal" onclick="event.stopPropagation()">
-        <div class="modal-header">
-          <span class="badge" style="background:${state.selectedDeal.platformColor||"#888"}22;color:${state.selectedDeal.platformColor||"#888"}">${(state.selectedDeal.platformLabel||"").toUpperCase()}</span>
-          <button class="close-btn" onclick="setState({selectedDeal:null,dealAnalysis:null})">✕</button>
-        </div>
-        <div class="modal-title">${state.selectedDeal.title||""}</div>
-        <div class="modal-meta">${state.selectedDeal.condition||""} • ${state.selectedDeal.location||""} • ${state.selectedDeal.postedAt||""}</div>
-        <div class="modal-price-row">
-          <span class="modal-price">${state.selectedDeal.price||0}€</span>
-          ${state.selectedDeal.originalPrice>state.selectedDeal.price?`<span style="font-size:13px;color:#2A2A3E;text-decoration:line-through">${state.selectedDeal.originalPrice}€</span>`:""}
-          ${state.selectedDeal.discount>0?`<span style="background:#FF3B5C22;color:#FF3B5C;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;font-family:'Syne',sans-serif">-${state.selectedDeal.discount}%</span>`:""}
-        </div>
-        <a href="${state.selectedDeal.url||"#"}" target="_blank" rel="noopener noreferrer" style="display:block;background:linear-gradient(135deg,#FF3B5C,#FF8C42);color:#fff;text-align:center;padding:11px;border-radius:8px;text-decoration:none;font-size:12px;font-family:inherit;font-weight:700;margin-bottom:10px;letter-spacing:0.5px">Voir l'annonce sur ${state.selectedDeal.platformLabel||""} ↗</a>
-        <div class="platform-links">
-          <div class="plinks-title">CHERCHER AUSSI SUR</div>
-          <div class="plinks-grid">
-            ${getSearchUrls(state.selectedDeal.title||"").filter(p=>p.id!==state.selectedDeal.platform).map(p=>`<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="plink" style="background:${p.color}11;border:1px solid ${p.color}44;color:${p.color}"><span>${p.label}</span><span>↗</span></a>`).join("")}
+        <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+            <span class="badge" style="background:${S.selectedDeal.platformColor||"#888"}22;color:${S.selectedDeal.platformColor||"#888"}">${(S.selectedDeal.platformLabel||"").toUpperCase()}</span>
+            ${S.selectedDeal.isGoodDeal?`<span style="background:#A8FF3E22;color:#A8FF3E;font-size:9px;padding:2px 7px;border-radius:4px;font-weight:700">✅ BONNE AFFAIRE</span>`:`<span style="background:#FF3B5C11;color:#555;font-size:9px;padding:2px 7px;border-radius:4px">❌ Pas rentable</span>`}
           </div>
+          <button class="modal-close" onclick="set({selectedDeal:null,dealAI:null})">✕</button>
         </div>
-        <button class="analyze-btn" onclick="analyzeNow('${state.selectedDeal.id}')" ${state.loadingAnalysis?"disabled":""} style="opacity:${state.loadingAnalysis?0.7:1}">
-          <span style="display:inline-block;animation:${state.loadingAnalysis?"spin 0.8s linear infinite":"none"}">${state.loadingAnalysis?"⟳":"✦"}</span>
-          ${state.loadingAnalysis?"Analyse en cours...":"Analyser avec l'IA"}
+        <div class="modal-title">${S.selectedDeal.title||"Annonce"}</div>
+        ${S.selectedDeal.text&&S.selectedDeal.text!==S.selectedDeal.title?`<div class="modal-text">${S.selectedDeal.text}</div>`:`<div style="height:8px"></div>`}
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px">
+          ${S.selectedDeal.price>0?`<span style="font-size:26px;font-family:'Syne',sans-serif;font-weight:800;color:#A8FF3E">${S.selectedDeal.price}€</span>${S.selectedDeal.originalPrice>S.selectedDeal.price?`<span style="font-size:12px;color:#2A2A3E;text-decoration:line-through">${S.selectedDeal.originalPrice}€ estimé</span>`:""}`:`<span style="font-size:16px;color:#555">Prix non détecté dans la notification</span>`}
+          ${S.selectedDeal.discount>0?`<span style="background:#FF3B5C22;color:#FF3B5C;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;font-family:'Syne',sans-serif">-${S.selectedDeal.discount}%</span>`:""}
+        </div>
+
+        <div style="font-size:8px;color:#444;letter-spacing:1px;margin-bottom:7px">RECHERCHER SUR LES PLATEFORMES</div>
+        <div class="plinks">
+          ${getSearchUrls(S.selectedDeal.title).map(p=>`<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="plink" style="background:${p.color}11;border:1px solid ${p.color}44;color:${p.color}"><span>${p.label}</span><span>↗</span></a>`).join("")}
+        </div>
+
+        <button onclick="analyzeWithAI(S.selectedDeal)" ${S.loadingAI?"disabled":""} style="width:100%;padding:10px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:6px;background:#18182A;border:1px solid #2A2A3E;color:#888;border-radius:8px;cursor:pointer;font-size:11px;font-family:inherit;opacity:${S.loadingAI?0.7:1}">
+          <span style="display:inline-block;animation:${S.loadingAI?"spin 0.8s linear infinite":"none"}">${S.loadingAI?"⟳":"✦"}</span>
+          ${S.loadingAI?"Analyse en cours...":"Analyser en détail avec l'IA"}
         </button>
-        ${state.dealAnalysis&&!state.loadingAnalysis?`
+
+        ${S.dealAI&&!S.loadingAI?`
           <div class="ai-result">
-            <div class="verdict-row">
-              <span class="verdict" style="color:${verdictColor(state.dealAnalysis.verdict)}">● ${state.dealAnalysis.verdict}</span>
-              <span class="score-text">Score <strong style="color:#fff">${state.dealAnalysis.score}/100</strong></span>
+            <div style="display:flex;justify-content:space-between;margin-bottom:9px">
+              <span style="color:${vc(S.dealAI.verdict)};font-family:'Syne',sans-serif;font-weight:800;font-size:13px">● ${S.dealAI.verdict}</span>
+              <span style="font-size:10px;color:#666">Score <strong style="color:#fff">${S.dealAI.score}/100</strong></span>
             </div>
-            ${state.dealAnalysis.resume?`<div class="resume">"${state.dealAnalysis.resume}"</div>`:""}
-            ${state.dealAnalysis.points_positifs?.length?`<div style="margin-bottom:8px"><div class="points-title" style="color:#A8FF3E">✓ POSITIFS</div>${state.dealAnalysis.points_positifs.map(p=>`<div class="point" style="color:#557755">${p}</div>`).join("")}</div>`:""}
-            ${state.dealAnalysis.points_attention?.length?`<div style="margin-bottom:8px"><div class="points-title" style="color:#FFD200">⚠ ATTENTION</div>${state.dealAnalysis.points_attention.map(p=>`<div class="point" style="color:#775533">${p}</div>`).join("")}</div>`:""}
-            ${state.dealAnalysis.conseil_achat?`<div class="conseil-box"><div class="conseil-label">RECOMMANDATION</div><div class="conseil-text">${state.dealAnalysis.conseil_achat}</div></div>`:""}
-            <div style="display:flex;justify-content:space-between;font-size:10px;color:#555">
-              ${state.dealAnalysis.prix_max_negociation?`<span>Offrir max: <strong style="color:#A8FF3E">${state.dealAnalysis.prix_max_negociation}€</strong></span>`:""}
-            </div>
+            ${S.dealAI.resume?`<div style="font-size:11px;color:#8888AA;margin-bottom:9px;font-style:italic">"${S.dealAI.resume}"</div>`:""}
+            ${S.dealAI.points_positifs?.length?`<div style="margin-bottom:7px"><div style="font-size:8px;color:#A8FF3E;letter-spacing:1px;margin-bottom:3px">✓ POSITIFS</div>${S.dealAI.points_positifs.map(p=>`<div style="font-size:10px;color:#557755;margin-bottom:2px">${p}</div>`).join("")}</div>`:""}
+            ${S.dealAI.points_attention?.length?`<div style="margin-bottom:7px"><div style="font-size:8px;color:#FFD200;letter-spacing:1px;margin-bottom:3px">⚠ ATTENTION</div>${S.dealAI.points_attention.map(p=>`<div style="font-size:10px;color:#775533;margin-bottom:2px">${p}</div>`).join("")}</div>`:""}
+            ${S.dealAI.conseil?`<div style="background:#0C0C18;border:1px solid #2A2A3E;border-radius:7px;padding:9px;margin-bottom:7px"><div style="font-size:8px;color:#444;letter-spacing:1px;margin-bottom:3px">RECOMMANDATION</div><div style="font-size:11px;color:#E2E2EE">${S.dealAI.conseil}</div></div>`:""}
+            ${S.dealAI.prix_max?`<div style="font-size:10px;color:#555">Prix max conseillé : <strong style="color:#A8FF3E">${S.dealAI.prix_max}€</strong></div>`:""}
           </div>
         `:""}
       </div>
@@ -498,54 +488,24 @@ function render() {
   `:""}
   `;
 
-  // Scroll chat to bottom
-  if (state.tab==="chat") {
-    setTimeout(()=>{const m=document.getElementById("chat-msgs");if(m)m.scrollTop=m.scrollHeight;},50);
-  }
+  if(S.tab==="chat"){setTimeout(()=>{const m=document.getElementById("msgs");if(m)m.scrollTop=m.scrollHeight;},50);}
 }
 
-function togglePlat(id) {
-  const sp = state.selectedPlatforms.includes(id) ? state.selectedPlatforms.filter(x=>x!==id) : [...state.selectedPlatforms,id];
-  setState({selectedPlatforms:sp});
+function addAlert(){
+  const kw=document.getElementById("kw")?.value||S.newKw;
+  const mp=document.getElementById("mp")?.value||S.newMp;
+  if(!kw) return;
+  set({alerts:[...S.alerts,{id:Date.now(),keyword:kw,maxPrice:parseInt(mp)||9999,active:true}],showAddAlert:false,newKw:"",newMp:""});
 }
-
-function openDeal(id) {
-  const deal = state.listings.find(l=>l.id==id);
-  if (deal) setState({selectedDeal:deal, dealAnalysis:null});
-}
-
-function analyzeNow(id) {
-  const deal = state.listings.find(l=>l.id==id);
-  if (deal) { setState({selectedDeal:deal}); analyzeWithAI(deal); }
-}
-
-function addAlert() {
-  const kw = document.getElementById("kw-in")?.value || state.newKeyword;
-  const mp = document.getElementById("mp-in")?.value || state.newMaxPrice;
-  if (!kw) return;
-  setState({alerts:[...state.alerts,{id:Date.now(),keyword:kw,maxPrice:parseInt(mp)||9999,active:true}],showAddAlert:false,newKeyword:"",newMaxPrice:""});
-}
-
-function toggleAlert(id) {
-  setState({alerts:state.alerts.map(a=>a.id===id?{...a,active:!a.active}:a)});
-}
-
-function deleteAlert(id) {
-  setState({alerts:state.alerts.filter(a=>a.id!==id)});
-}
-
-function markRead(id) {
-  setState({notifications:state.notifications.map(n=>n.id===id?{...n,read:true}:n)});
-}
-
-function markAllRead() {
-  setState({notifications:state.notifications.map(n=>({...n,read:true}))});
-}
+function toggleAlert(id){set({alerts:S.alerts.map(a=>a.id===id?{...a,active:!a.active}:a)});}
+function delAlert(id){set({alerts:S.alerts.filter(a=>a.id!==id)});}
 
 // Init
 render();
-runScan();
-setInterval(runScan, 10*60*1000);
+loadDeals();
+setInterval(loadDeals, 60000); // refresh toutes les minutes
 </script>
 </body>
 </html>
+HTMLEOF
+echo "Done - $(wc -c < /mnt/user-data/outputs/dealhunt-app.html) bytes"
